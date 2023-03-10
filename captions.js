@@ -4,22 +4,24 @@
 videojs.registerPlugin('captions', function () {
   var player = this
 
-  player.on("loadedmetadata", function () {
+  player.on('loadedmetadata', function () {
     var language = player.language().toLowerCase()
-    var tracks = Array.from(player.textTracks());
+    var tracks = Array.from(player.textTracks()).filter(function (track) {
+      return track.kind === 'caption'
+    });
 
     // Prefer exact match, fall back to base lang.
     var preferredTrack = tracks.find(function (track) {
-      return track.language.toLowerCase() === language;
+      return track.language.toLowerCase() === language
     }) || tracks.find(function (track) {
-      return track.language.toLowerCase().slice(0, 2) === language.slice(0, 2);
-    });
+      return track.language.toLowerCase().slice(0, 2) === language.slice(0, 2)
+    })
 
     if (preferredTrack) {
       tracks.forEach(function (track) {
-        track.mode = "disabled";
+        track.mode = 'disabled'
       });
-      preferredTrack.mode = "showing";
+      preferredTrack.mode = 'showing'
     }
-  });
-});
+  })
+})
