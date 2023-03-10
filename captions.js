@@ -10,9 +10,9 @@ videojs.registerPlugin('captions', function () {
 
     // Prefer exact match, fall back to base lang.
     var preferredTrack = tracks.find(function (track) {
-      track.language.toLowerCase() === language;
+      return track.language.toLowerCase() === language;
     }) || tracks.find(function (track) {
-      track.language.toLowerCase().slice(0, 2) === language.slice(0, 2);
+      return track.language.toLowerCase().slice(0, 2) === language.slice(0, 2);
     });
 
     if (preferredTrack) {
