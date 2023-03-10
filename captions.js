@@ -7,7 +7,7 @@ videojs.registerPlugin('captions', function () {
   player.on('loadedmetadata', function () {
     var language = player.language().toLowerCase()
     var tracks = Array.from(player.textTracks()).filter(function (track) {
-      return track.kind === 'caption'
+      return track.kind === 'captions'
     });
 
     // Prefer exact match, fall back to base lang.
